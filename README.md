@@ -1,3 +1,5 @@
+A full-stack Expense Tracker web application built using React.js, Node.js, Express.js, and MySQL. The project allows users to manage expenses, track financial goals, and monitor spending through a responsive and user-friendly interface. Currently under development with continuous feature and UI improvements.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
