@@ -49,11 +49,11 @@ git clone https://github.com/adityasharma0908/Expense-Tracker-Project
 
 ### Install Frontend Dependencies
 
-bash cd frontend npm install 
+cd frontend npm install 
 
 ### Install Backend Dependencies
 
-bash cd backend npm install 
+cd backend npm install 
 
 ## Environment Variables
 
