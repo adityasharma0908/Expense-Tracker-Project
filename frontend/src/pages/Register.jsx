@@ -10,26 +10,22 @@ const styles = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:         #07070d;
-    --surface:    #0d0d16;
-    --surface2:   #12121c;
-    --surface3:   #171724;
-    --border:     rgba(255,255,255,0.06);
-    --border-hi:  rgba(200,245,66,0.22);
-    --accent:     #c8f542;
-    --accent-dim: rgba(200,245,66,0.09);
-    --text:       #e8e8f0;
-    --text-2:     #8888a0;
-    --text-3:     #44445a;
+    --bg:         #f5f5f0;
+    --surface:    #ffffff;
+    --surface2:   #f9f9f7;
+    --surface3:   #f0f0eb;
+    --border:     rgba(0,0,0,0.07);
+    --border-hi:  rgba(79,110,242,0.30);
+    --accent:     #4f6ef2;
+    --accent-dim: rgba(79,110,242,0.08);
+    --text:       #1a1a2e;
+    --text-2:     #5a5a72;
+    --text-3:     #a0a0b8;
   }
 
   @keyframes fadeUp {
-    from { opacity:0; transform:translateY(16px); }
+    from { opacity:0; transform:translateY(12px); }
     to   { opacity:1; transform:translateY(0); }
-  }
-  @keyframes pulseOrb {
-    0%,100% { opacity:.5; transform:scale(1); }
-    50%      { opacity:.8; transform:scale(1.06); }
   }
 
   body {
@@ -46,22 +42,6 @@ const styles = `
     position: relative; overflow: hidden;
   }
 
-  .bg-grid {
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none; z-index: 0;
-  }
-  .bg-orb {
-    position: fixed; border-radius: 50%;
-    filter: blur(110px); pointer-events: none; z-index: 0;
-    animation: pulseOrb 9s ease-in-out infinite;
-  }
-  .orb1 { width:500px; height:500px; background:rgba(124,58,237,.08); top:-160px; right:-140px; }
-  .orb2 { width:380px; height:380px; background:rgba(200,245,66,.05); bottom:-100px; left:-100px; animation-delay:-4s; }
-
   /* ── CARD ── */
   .auth-card {
     position: relative; z-index: 1;
@@ -70,8 +50,8 @@ const styles = `
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 44px 36px;
-    box-shadow: 0 0 60px rgba(0,0,0,.4);
-    animation: fadeUp .55s ease both;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    animation: fadeUp .5s ease both;
   }
 
   .auth-logo {
@@ -80,7 +60,6 @@ const styles = `
   }
   .auth-logo img {
     width: 52px; height: 52px; object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(200,245,66,.35));
   }
 
   .auth-title {
@@ -123,9 +102,9 @@ const styles = `
     transition: border-color .2s, background .2s, box-shadow .2s;
   }
   .styled-input::placeholder { color: var(--text-3); }
-  .styled-input:hover { background: var(--surface3); border-color: rgba(255,255,255,.09); }
+  .styled-input:hover { background: var(--surface3); border-color: rgba(0,0,0,0.12); }
   .styled-input:focus {
-    background: var(--surface3);
+    background: #fff;
     border-color: var(--border-hi);
     box-shadow: 0 0 0 3px var(--accent-dim);
   }
@@ -138,19 +117,21 @@ const styles = `
   /* ── BUTTON ── */
   .submit-btn {
     width: 100%; padding: 13px;
-    background: var(--accent); color: #07070d;
+    background: var(--accent); color: #fff;
     border: none; border-radius: 10px;
     font-family: 'DM Sans', sans-serif;
     font-size: 14px; font-weight: 600;
     letter-spacing: .3px; cursor: pointer;
-    transition: all .22s cubic-bezier(.34,1.56,.64,1);
+    transition: all .18s ease;
+    box-shadow: 0 2px 10px rgba(79,110,242,0.22);
     margin-bottom: 22px;
   }
   .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(200,245,66,.22);
+    background: #3d5ae0;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(79,110,242,0.28);
   }
-  .submit-btn:active { transform: translateY(0); box-shadow: none; }
+  .submit-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(79,110,242,0.18); }
 
   /* ── DIVIDER ── */
   .divider { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
@@ -204,8 +185,6 @@ function Register() {
       const response = await API.post("/auth/register", { name, email, password })
       console.log(response.data)
       alert("Registration Successful")
-
-
       navigate("/")
     } catch (error) {
       console.log(error)
@@ -217,9 +196,6 @@ function Register() {
     <>
       <style>{styles}</style>
       <div className="auth-page">
-        <div className="bg-grid"/>
-        <div className="bg-orb orb1"/>
-        <div className="bg-orb orb2"/>
 
         <div className="auth-card">
           <div className="auth-logo">
@@ -227,7 +203,7 @@ function Register() {
           </div>
 
           <h1 className="auth-title">Create account</h1>
-          <p className="auth-sub">start tracking your expenses</p>
+          <p className="auth-sub">Start tracking your expenses</p>
 
           <form onSubmit={handleRegister}>
             <div className="field-group">

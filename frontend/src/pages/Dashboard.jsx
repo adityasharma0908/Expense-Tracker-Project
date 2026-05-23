@@ -27,28 +27,24 @@ const styles = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:         #07070d;
-    --surface:    #0d0d16;
-    --surface2:   #12121c;
-    --surface3:   #171724;
-    --border:     rgba(255,255,255,0.06);
-    --border-hi:  rgba(200,245,66,0.22);
-    --accent:     #c8f542;
-    --accent-dim: rgba(200,245,66,0.09);
-    --red:        #f87171;
-    --red-dim:    rgba(248,113,113,0.09);
-    --text:       #e8e8f0;
-    --text-2:     #8888a0;
-    --text-3:     #44445a;
+    --bg:         #f5f5f0;
+    --surface:    #ffffff;
+    --surface2:   #f9f9f7;
+    --surface3:   #f0f0eb;
+    --border:     rgba(0,0,0,0.07);
+    --border-hi:  rgba(79,110,242,0.30);
+    --accent:     #4f6ef2;
+    --accent-dim: rgba(79,110,242,0.08);
+    --red:        #d95b5b;
+    --red-dim:    rgba(217,91,91,0.08);
+    --text:       #1a1a2e;
+    --text-2:     #5a5a72;
+    --text-3:     #a0a0b8;
   }
 
   @keyframes fadeUp {
-    from { opacity:0; transform:translateY(14px); }
+    from { opacity:0; transform:translateY(10px); }
     to   { opacity:1; transform:translateY(0); }
-  }
-  @keyframes pulseOrb {
-    0%,100% { opacity:.5; transform:scale(1); }
-    50%      { opacity:.8; transform:scale(1.06); }
   }
   @keyframes progressFill {
     from { width:0%; }
@@ -60,36 +56,19 @@ const styles = `
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── PAGE ── */
   .db-page {
     min-height: 100vh;
     background: var(--bg);
     color: var(--text);
     padding-bottom: 60px;
-    position: relative; overflow-x: hidden;
+    position: relative;
   }
-
-  .bg-grid {
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none; z-index: 0;
-  }
-  .bg-orb {
-    position: fixed; border-radius: 50%;
-    filter: blur(110px); pointer-events: none; z-index: 0;
-    animation: pulseOrb 9s ease-in-out infinite;
-  }
-  .orb1 { width:500px; height:500px; background:rgba(124,58,237,.08); top:-160px; right:-140px; }
-  .orb2 { width:380px; height:380px; background:rgba(200,245,66,.05); bottom:-100px; left:-100px; animation-delay:-4s; }
 
   /* ── NAV ── */
   .db-nav {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(7,7,13,.88);
-    backdrop-filter: blur(20px);
+    background: rgba(245,245,240,0.92);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     height: 60px; padding: 0 36px;
     display: flex; align-items: center;
@@ -98,7 +77,6 @@ const styles = `
   .nav-brand { display:flex; align-items:center; gap:9px; }
   .nav-brand img {
     width: 28px; height: 28px; object-fit: contain;
-    filter: drop-shadow(0 0 7px rgba(200,245,66,.4));
   }
   .nav-brand-name {
     font-size: 15px; font-weight: 600; letter-spacing: -.2px;
@@ -107,17 +85,18 @@ const styles = `
 
   .profile-pill {
     display: flex; align-items: center; gap: 9px;
-    background: var(--surface2);
+    background: var(--surface);
     border: 1px solid var(--border);
     padding: 6px 12px 6px 7px;
     border-radius: 100px; cursor: pointer;
     transition: border-color .2s, background .2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   }
-  .profile-pill:hover { border-color: var(--border-hi); background: var(--surface3); }
+  .profile-pill:hover { border-color: var(--border-hi); }
 
   .avatar {
     width: 30px; height: 30px; border-radius: 50%;
-    background: var(--accent); color: #07070d;
+    background: var(--accent); color: #fff;
     display: flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 13px; flex-shrink: 0;
   }
@@ -157,9 +136,13 @@ const styles = `
     border: 1px solid var(--border);
     border-radius: 14px; padding: 20px 18px;
     position: relative; overflow: hidden;
-    transition: border-color .2s, transform .2s;
+    transition: border-color .2s, box-shadow .2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
-  .overview-card:hover { border-color: rgba(255,255,255,.1); transform: translateY(-1px); }
+  .overview-card:hover {
+    border-color: rgba(79,110,242,0.18);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+  }
 
   .ov-label {
     font-family: 'DM Mono', monospace;
@@ -170,7 +153,7 @@ const styles = `
     font-size: 26px; font-weight: 600; letter-spacing: -.5px;
   }
   .ov-amount.neutral { color: var(--text); }
-  .ov-amount.green   { color: var(--accent); }
+  .ov-amount.green   { color: #2a8c55; }
   .ov-amount.red     { color: var(--red); }
 
   /* ── SECTION GRID ── */
@@ -186,6 +169,7 @@ const styles = `
     border-radius: 14px; padding: 22px;
     animation: fadeUp .5s .12s ease both; opacity:0;
     animation-fill-mode: forwards;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
   .card-title {
     font-size: 15px; font-weight: 600; letter-spacing: -.2px;
@@ -194,7 +178,7 @@ const styles = `
   }
   .card-dot {
     width: 5px; height: 5px; border-radius: 50%;
-    background: var(--accent); box-shadow: 0 0 5px var(--accent);
+    background: var(--accent);
     flex-shrink: 0;
   }
 
@@ -205,7 +189,7 @@ const styles = `
     color: var(--text-2); margin-bottom: 5px; display: block;
   }
   .styled-input {
-    width: 100%; padding: 11px 13px;
+    width: 100%; padding: 10px 13px;
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 9px; color: var(--text);
@@ -214,9 +198,9 @@ const styles = `
     transition: border-color .2s, background .2s, box-shadow .2s;
   }
   .styled-input::placeholder { color: var(--text-3); }
-  .styled-input:hover { background: var(--surface3); border-color: rgba(255,255,255,.09); }
+  .styled-input:hover { background: var(--surface3); border-color: rgba(0,0,0,0.12); }
   .styled-input:focus {
-    background: var(--surface3);
+    background: #fff;
     border-color: var(--border-hi);
     box-shadow: 0 0 0 3px var(--accent-dim);
   }
@@ -235,7 +219,7 @@ const styles = `
     font-size: 13px; font-weight: 500;
     cursor: pointer; transition: all .18s;
   }
-  .type-btn.income-active  { background: var(--accent); color: #07070d; }
+  .type-btn.income-active  { background: var(--accent); color: #fff; }
   .type-btn.expense-active { background: var(--red);    color: #fff; }
   .type-btn.inactive       { background: transparent;   color: var(--text-3); }
   .type-btn.inactive:hover { color: var(--text-2); }
@@ -243,18 +227,20 @@ const styles = `
   /* ── PRIMARY BUTTON ── */
   .primary-btn {
     width: 100%; padding: 12px;
-    background: var(--accent); color: #07070d;
+    background: var(--accent); color: #fff;
     border: none; border-radius: 9px;
     font-family: 'DM Sans', sans-serif;
     font-size: 14px; font-weight: 600;
     cursor: pointer;
-    transition: all .22s cubic-bezier(.34,1.56,.64,1);
+    transition: all .18s ease;
+    box-shadow: 0 2px 8px rgba(79,110,242,0.20);
   }
   .primary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(200,245,66,.2);
+    background: #3d5ae0;
+    box-shadow: 0 4px 14px rgba(79,110,242,0.28);
+    transform: translateY(-1px);
   }
-  .primary-btn:active { transform:translateY(0); box-shadow:none; }
+  .primary-btn:active { transform:translateY(0); box-shadow: 0 2px 6px rgba(79,110,242,0.18); }
 
   /* ── GOAL CARDS ── */
   .goal-list { margin-top: 18px; display:flex; flex-direction:column; gap:10px; }
@@ -263,9 +249,12 @@ const styles = `
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 11px; padding: 14px;
-    transition: border-color .2s;
+    transition: border-color .2s, box-shadow .2s;
   }
-  .goal-card:hover { border-color: rgba(200,245,66,.12); }
+  .goal-card:hover {
+    border-color: rgba(79,110,242,0.18);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
 
   .goal-card-header {
     display: flex; justify-content: space-between;
@@ -277,7 +266,7 @@ const styles = `
 
   .edit-btn {
     background: var(--accent-dim);
-    border: 1px solid rgba(200,245,66,.18);
+    border: 1px solid rgba(79,110,242,0.18);
     color: var(--accent);
     border-radius: 6px; padding: 4px 9px;
     font-family: 'DM Mono', monospace;
@@ -285,11 +274,11 @@ const styles = `
     letter-spacing: .8px; cursor: pointer;
     transition: background .15s;
   }
-  .edit-btn:hover { background: rgba(200,245,66,.15); }
+  .edit-btn:hover { background: rgba(79,110,242,0.14); }
 
   .del-btn {
     background: transparent;
-    border: 1px solid rgba(255,255,255,.06);
+    border: 1px solid var(--border);
     color: var(--text-3);
     border-radius: 6px; width: 26px; height: 26px;
     display: flex; align-items: center; justify-content: center;
@@ -303,11 +292,11 @@ const styles = `
   }
   .progress-fill {
     height:100%; border-radius:99px;
-    background: linear-gradient(90deg, #84c520, var(--accent));
+    background: linear-gradient(90deg, #7a9af0, var(--accent));
     animation: progressFill .7s ease both;
     transition: width .4s ease;
   }
-  .progress-fill.full { background: linear-gradient(90deg, var(--accent), #e8ff80); }
+  .progress-fill.full { background: linear-gradient(90deg, #2a8c55, #4ab87a); }
 
   .goal-footer {
     display:flex; justify-content:space-between;
@@ -317,10 +306,11 @@ const styles = `
     font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3);
   }
   .completed-badge {
-    background: var(--accent); color: #07070d;
+    background: #e6f4ec; color: #2a8c55;
     padding: 2px 8px; border-radius:99px;
     font-family:'DM Mono',monospace; font-size:10px; font-weight:600;
     letter-spacing:.8px; text-transform:uppercase;
+    border: 1px solid rgba(42,140,85,0.2);
   }
 
   /* ── TRANSACTIONS ── */
@@ -330,10 +320,11 @@ const styles = `
     border-radius: 14px; padding: 22px;
     animation: fadeUp .5s .18s ease both; opacity:0;
     animation-fill-mode: forwards;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
   .tx-header {
     display:flex; justify-content:space-between;
-    align-items:center; margin-bottom:16px;
+    align-items:center; margin-bottom:16px; gap: 10px;
   }
   .tx-title {
     font-size: 15px; font-weight: 600; letter-spacing:-.2px;
@@ -351,16 +342,19 @@ const styles = `
     background:var(--surface2);
     border:1px solid var(--border);
     border-radius:9px; margin-bottom:7px;
-    transition: border-color .15s, background .15s;
+    transition: border-color .15s, box-shadow .15s;
   }
-  .tx-row:hover { border-color:rgba(255,255,255,.09); background:var(--surface3); }
+  .tx-row:hover {
+    border-color: rgba(79,110,242,0.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
 
   .tx-icon {
     width:32px; height:32px; border-radius:8px;
     display:flex; align-items:center; justify-content:center; flex-shrink:0;
   }
-  .tx-icon.inc { background:var(--accent-dim); color:var(--accent); }
-  .tx-icon.exp { background:var(--red-dim);    color:var(--red); }
+  .tx-icon.inc { background: rgba(79,110,242,0.10); color: var(--accent); }
+  .tx-icon.exp { background: var(--red-dim); color: var(--red); }
 
   .tx-desc {
     flex:1; min-width:0;
@@ -370,8 +364,8 @@ const styles = `
   .tx-amount {
     font-family:'DM Mono',monospace; font-size:13px; font-weight:400; flex-shrink:0;
   }
-  .tx-amount.inc { color:var(--accent); }
-  .tx-amount.exp { color:var(--red); }
+  .tx-amount.inc { color: #2a8c55; }
+  .tx-amount.exp { color: var(--red); }
 
   /* ── SUMMARY ── */
   .divider { height:1px; background:var(--border); margin:14px 0; }
@@ -385,8 +379,8 @@ const styles = `
     text-transform:uppercase; color:var(--text-3); margin-bottom:5px;
   }
   .summary-value { font-size:18px; font-weight:600; }
-  .summary-value.inc { color:var(--accent); }
-  .summary-value.exp { color:var(--red); }
+  .summary-value.inc { color: #2a8c55; }
+  .summary-value.exp { color: var(--red); }
 
   .empty {
     text-align:center; color:var(--text-3);
@@ -463,8 +457,6 @@ console.log(e)}
 
   const deleteTransaction = async (id) => {
     try { await API.delete(`/transactions/${id}`); fetchTransactions() }
-    
-    
     catch (e) { toast.error("Something went wrong")
 console.log(e) }
     toast.error("Transaction deleted")
@@ -499,235 +491,90 @@ toast.error("Goal deleted")}
     } catch (e) { toast.error("Something went wrong")
 console.log(e) }
     if (updatedSaved >= goal.target_amount) {
-
-  toast.success(
-    `${goal.title} completed 🎉`
-  )
-
-}
+      toast.success(`${goal.title} completed 🎉`)
+    }
   }
 
   const income  = transactions.filter(t => t.amount > 0).reduce((a,t) => a + Number(t.amount), 0)
   const expense = transactions.filter(t => t.amount < 0).reduce((a,t) => a + Number(t.amount), 0)
   const balance = income + expense
-  const isOverspending =
-  Math.abs(expense) > income
+  const isOverspending = Math.abs(expense) > income
+  const spendingPercentage = income > 0 ? (Math.abs(expense) / income) * 100 : 0
+  const fmt = n => Number(n || 0).toLocaleString("en-IN")
 
-const spendingPercentage =
-  income > 0
-    ? (Math.abs(expense) / income) * 100
-    : 0
-  const fmt     = n => Number(n || 0).toLocaleString("en-IN")
-  // EXPORT PDF
+  const exportPDF = () => {
+    const doc = new jsPDF()
+    doc.text("Expense Tracker Report", 14, 15)
+    autoTable(doc, {
+      startY: 25,
+      head: [["Description", "Category", "Amount"]],
+      body: transactions.map(tx => [tx.text, tx.category, tx.amount])
+    })
+    doc.save("transactions.pdf")
+  }
 
-const exportPDF = () => {
+  const exportExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(transactions)
+    const workbook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Transactions")
+    XLSX.writeFile(workbook, "transactions.xlsx")
+  }
 
-  const doc = new jsPDF()
+  const exportCSV = () => {
+    const worksheet = XLSX.utils.json_to_sheet(transactions)
+    const csvOutput = XLSX.utils.sheet_to_csv(worksheet)
+    const blob = new Blob([csvOutput], { type: "text/csv;charset=utf-8;" })
+    saveAs(blob, "transactions.csv")
+  }
 
-  doc.text(
-    "Expense Tracker Report",
-    14,
-    15
-  )
+  const analyticsData = [
+    { name: "Income", value: income },
+    { name: "Expense", value: Math.abs(expense) }
+  ]
 
-  autoTable(doc, {
-
-    startY: 25,
-
-    head: [[
-      "Description",
-      "Category",
-      "Amount"
-    ]],
-
-    body: transactions.map(tx => [
-
-      tx.text,
-
-      tx.category,
-
-      tx.amount
-
-    ])
-
+  const categoryTotals = {}
+  transactions.forEach(tx => {
+    if (tx.amount < 0) {
+      const category = tx.category || "Other"
+      categoryTotals[category] = (categoryTotals[category] || 0) + Math.abs(tx.amount)
+    }
   })
 
-  doc.save("transactions.pdf")
+  const monthlyData = [
+    { month: "Jan", income: 12000, expense: 8000 },
+    { month: "Feb", income: 15000, expense: 6000 },
+    { month: "Mar", income: 18000, expense: 9000 },
+    { month: "Apr", income: 14000, expense: 7000 },
+    { month: "May", income: income, expense: Math.abs(expense) },
+  ]
 
-}
+  const COLORS = ["#4f6ef2", "#d95b5b"]
 
-// EXPORT EXCEL
-
-const exportExcel = () => {
-
-  const worksheet =
-    XLSX.utils.json_to_sheet(
-      transactions
-    )
-
-  const workbook =
-    XLSX.utils.book_new()
-
-  XLSX.utils.book_append_sheet(
-    workbook,
-    worksheet,
-    "Transactions"
-  )
-
-  XLSX.writeFile(
-    workbook,
-    "transactions.xlsx"
-  )
-
-}
-
-// EXPORT CSV
-
-const exportCSV = () => {
-
-  const worksheet =
-    XLSX.utils.json_to_sheet(
-      transactions
-    )
-
-  const csvOutput =
-    XLSX.utils.sheet_to_csv(
-      worksheet
-    )
-
-  const blob = new Blob(
-    [csvOutput],
-    {
-      type: "text/csv;charset=utf-8;"
-    }
-  )
-
-  saveAs(
-    blob,
-    "transactions.csv"
-  )
-
-}
-  const analyticsData = [
-  {
-    name: "Income",
-    value: income
-  },
-  {
-    name: "Expense",
-    value: Math.abs(expense)
-  }
-]
-const categoryTotals = {}
-
-transactions.forEach(tx => {
-
-  if (tx.amount < 0) {
-
-    const category =
-      tx.category || "Other"
-
-    categoryTotals[category] =
-      (categoryTotals[category] || 0)
-      + Math.abs(tx.amount)
-
-  }
-
-})
-const monthlyData = [
-  { month: "Jan", income: 12000, expense: 8000 },
-  { month: "Feb", income: 15000, expense: 6000 },
-  { month: "Mar", income: 18000, expense: 9000 },
-  { month: "Apr", income: 14000, expense: 7000 },
-  { month: "May", income: income, expense: Math.abs(expense) },
-]
-
-const COLORS = ["#c8f542", "#f87171"]
   const filteredTransactions =
-  filterCategory === "All"
-    ? transactions
-    : transactions.filter(
-        tx => tx.category === filterCategory
-      )
-let highestCategory = null
-let highestAmount = 0
+    filterCategory === "All"
+      ? transactions
+      : transactions.filter(tx => tx.category === filterCategory)
 
-for (const category in categoryTotals) {
-
-  if (
-    categoryTotals[category] >
-    highestAmount
-  ) {
-
-    highestAmount =
-      categoryTotals[category]
-
-    highestCategory =
-      category
-
+  let highestCategory = null
+  let highestAmount = 0
+  for (const category in categoryTotals) {
+    if (categoryTotals[category] > highestAmount) {
+      highestAmount = categoryTotals[category]
+      highestCategory = category
+    }
   }
 
-}
-const aiInsights = []
-
-if (highestCategory) {
-
-  aiInsights.push(
-
-    `Your highest spending is on ${highestCategory}.`
-
-  )
-
-}
-
-if (Math.abs(expense) > income) {
-
-  aiInsights.push(
-
-    "You are currently overspending."
-
-  )
-
-}
-
-if (
-  income > 0 &&
-  Math.abs(expense) / income < 0.5
-) {
-
-  aiInsights.push(
-
-    "Excellent savings rate this month."
-
-  )
-
-}
-
-if (
-  income > 0 &&
-  Math.abs(expense) / income > 0.8
-) {
-
-  aiInsights.push(
-
-    "Your expenses are close to your income."
-
-  )
-
-}
+  const aiInsights = []
+  if (highestCategory) aiInsights.push(`Your highest spending is on ${highestCategory}.`)
+  if (Math.abs(expense) > income) aiInsights.push("You are currently overspending.")
+  if (income > 0 && Math.abs(expense) / income < 0.5) aiInsights.push("Excellent savings rate this month.")
+  if (income > 0 && Math.abs(expense) / income > 0.8) aiInsights.push("Your expenses are close to your income.")
 
   return (
     <>
-    <ToastContainer
-  position="top-right"
-  autoClose={3000}
-  theme="dark"
-/>
+      <ToastContainer position="top-right" autoClose={3000} theme="light" />
       <style>{styles}</style>
       <div className="db-page">
-        <div className="bg-grid"/>
-        <div className="bg-orb orb1"/>
-        <div className="bg-orb orb2"/>
 
         {/* NAV */}
         <nav className="db-nav">
@@ -755,7 +602,6 @@ if (
           {/* OVERVIEW */}
           <div className="overview-grid">
             <div className="overview-card">
-
               <p className="ov-label">Balance</p>
               <p className={`ov-amount ${balance >= 0 ? "green" : "red"}`}>₹{fmt(balance)}</p>
             </div>
@@ -770,85 +616,42 @@ if (
           </div>
 
           {/* OVERSPENDING ALERT */}
+          {isOverspending && (
+            <div style={{
+              background: "rgba(217,91,91,0.06)",
+              border: "1px solid rgba(217,91,91,0.18)",
+              borderRadius: "14px",
+              padding: "18px",
+              marginBottom: "20px",
+              color: "#b94040",
+              animation: "fadeUp .4s ease"
+            }}>
+              <div style={{ fontSize: "15px", fontWeight: "600", marginBottom: "6px" }}>
+                ⚠ Overspending Alert
+              </div>
+              <div style={{ fontSize: "14px", color: "#c75555" }}>
+                Your expenses are higher than your income. Try reducing unnecessary spending.
+              </div>
+            </div>
+          )}
 
-{
-  isOverspending && (
-
-    <div
-      style={{
-        background: "rgba(248,113,113,0.08)",
-        border: "1px solid rgba(248,113,113,0.2)",
-        borderRadius: "14px",
-        padding: "18px",
-        marginBottom: "20px",
-        color: "#f87171",
-        animation: "fadeUp .4s ease"
-      }}
-    >
-
-      <div
-        style={{
-          fontSize: "16px",
-          fontWeight: "600",
-          marginBottom: "6px"
-        }}
-      >
-        ⚠ Overspending Alert
-      </div>
-
-      <div
-        style={{
-          fontSize: "14px",
-          color: "#fca5a5"
-        }}
-      >
-        Your expenses are higher than your income.
-        Try reducing unnecessary spending.
-      </div>
-
-    </div>
-
-  )
-}
-{
-  !isOverspending &&
-  spendingPercentage >= 80 && (
-
-    <div
-      style={{
-        background: "rgba(250,204,21,0.08)",
-        border: "1px solid rgba(250,204,21,0.2)",
-        borderRadius: "14px",
-        padding: "18px",
-        marginBottom: "20px",
-        color: "#fde047"
-      }}
-    >
-
-      <div
-        style={{
-          fontSize: "16px",
-          fontWeight: "600",
-          marginBottom: "6px"
-        }}
-      >
-        ⚡ High Spending Warning
-      </div>
-
-      <div
-        style={{
-          fontSize: "14px",
-          color: "#fef08a"
-        }}
-      >
-        You have used {spendingPercentage.toFixed(0)}%
-        of your income.
-      </div>
-
-    </div>
-
-  )
-}
+          {!isOverspending && spendingPercentage >= 80 && (
+            <div style={{
+              background: "rgba(186,117,23,0.06)",
+              border: "1px solid rgba(186,117,23,0.18)",
+              borderRadius: "14px",
+              padding: "18px",
+              marginBottom: "20px",
+              color: "#7a4e0a"
+            }}>
+              <div style={{ fontSize: "15px", fontWeight: "600", marginBottom: "6px" }}>
+                ⚡ High Spending Warning
+              </div>
+              <div style={{ fontSize: "14px", color: "#9a6415" }}>
+                You have used {spendingPercentage.toFixed(0)}% of your income.
+              </div>
+            </div>
+          )}
 
           {/* GOAL + TRANSACTION */}
           <div className="section-grid">
@@ -889,7 +692,6 @@ if (
                             <div className="goal-actions">
                               <button className="edit-btn" onClick={() => updateGoalSavedAmount(goal)}>+ Add</button>
                               <button className="del-btn"  onClick={() => deleteGoal(goal.id)}>×</button>
-                              
                             </div>
                           </div>
                           <div className="progress-track">
@@ -918,64 +720,48 @@ if (
               <label className="field-label">Description</label>
               <input type="text" placeholder="e.g. Groceries, Salary…" className="styled-input"
                 value={text} onChange={e => setText(e.target.value)}/>
-                <label className="field-label">Category</label>
 
-<select
-  className="styled-input"
-  value={category}
-  onChange={e => setCategory(e.target.value)}
->
-  <option>Food</option>
-  <option>Salary</option>
-  <option>Shopping</option>
-  <option>Transport</option>
-  <option>Bills</option>
-  <option>Entertainment</option>
-  <option>Health</option>
-  <option>Other</option>
-</select>
+              <label className="field-label">Category</label>
+              <select className="styled-input" value={category} onChange={e => setCategory(e.target.value)}>
+                <option>Food</option>
+                <option>Salary</option>
+                <option>Shopping</option>
+                <option>Transport</option>
+                <option>Bills</option>
+                <option>Entertainment</option>
+                <option>Health</option>
+                <option>Other</option>
+              </select>
 
               <label className="field-label">Amount (₹)</label>
-
-
-<input
-  type="number"
-  placeholder="Enter amount"
-  className="styled-input"
-  value={amount}
-  onChange={e => setAmount(e.target.value)}
-/>
-              
+              <input type="number" placeholder="Enter amount" className="styled-input"
+                value={amount} onChange={e => setAmount(e.target.value)}/>
 
               <button className="primary-btn" onClick={addTransaction}>Add Transaction</button>
             </div>
 
           </div>
 
-          
           {/* TRANSACTIONS */}
           <div className="tx-section">
             <div className="tx-header">
               <h2 className="tx-title"><span className="card-dot"/>Recent Transactions</h2>
               <select
-  className="styled-input"
-  style={{
-    width: "160px",
-    marginBottom: "0"
-  }}
-  value={filterCategory}
-  onChange={e => setFilterCategory(e.target.value)}
->
-  <option value="All">All</option>
-  <option value="Food">Food</option>
-  <option value="Salary">Salary</option>
-  <option value="Shopping">Shopping</option>
-  <option value="Transport">Transport</option>
-  <option value="Bills">Bills</option>
-  <option value="Entertainment">Entertainment</option>
-  <option value="Health">Health</option>
-  <option value="Other">Other</option>
-</select>
+                className="styled-input"
+                style={{ width: "160px", marginBottom: "0" }}
+                value={filterCategory}
+                onChange={e => setFilterCategory(e.target.value)}
+              >
+                <option value="All">All</option>
+                <option value="Food">Food</option>
+                <option value="Salary">Salary</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Transport">Transport</option>
+                <option value="Bills">Bills</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Health">Health</option>
+                <option value="Other">Other</option>
+              </select>
               <span className="tx-count">{transactions.length} entries</span>
             </div>
 
@@ -985,19 +771,12 @@ if (
                   {[...filteredTransactions].reverse().map(tx => {
                     const isIncome = tx.amount > 0
                     return (
-                      
                       <div key={tx.id} className="tx-row">
                         <div className={`tx-icon ${isIncome ? "inc" : "exp"}`}>
                           {isIncome ? <IncomeIcon/> : <ExpenseIcon/>}
                         </div>
-                        <p
-                          style={{
-                            fontSize: "12px",
-                            color: "#64748b",
-                            marginTop: "3px"
-                          }}
-                        >
-                           {tx.category}
+                        <p style={{ fontSize: "12px", color: "var(--text-3)", marginTop: "3px" }}>
+                          {tx.category}
                         </p>
                         <span className="tx-desc">{tx.text}</span>
                         <span className={`tx-amount ${isIncome ? "inc" : "exp"}`}>
@@ -1005,7 +784,6 @@ if (
                         </span>
                         <button className="del-btn" onClick={() => deleteTransaction(tx.id)}>×</button>
                       </div>
-                      
                     )
                   })}
                   <div className="divider"/>
@@ -1020,205 +798,78 @@ if (
                     </div>
                   </div>
                 </>
-                
             }
           </div>
+
           {/* EXPORT BUTTONS */}
+          <div style={{ display: "flex", gap: "10px", marginTop: "20px", marginBottom: "20px", flexWrap: "wrap" }}>
+            <button className="primary-btn" style={{ width: "auto", padding: "10px 18px" }} onClick={exportPDF}>
+              Export PDF
+            </button>
+            <button className="primary-btn" style={{ width: "auto", padding: "10px 18px" }} onClick={exportExcel}>
+              Export Excel
+            </button>
+            <button className="primary-btn" style={{ width: "auto", padding: "10px 18px" }} onClick={exportCSV}>
+              Export CSV
+            </button>
+          </div>
 
-<div
-  style={{
-    display: "flex",
-    gap: "10px",
-    marginBottom: "20px",
-    flexWrap: "wrap"
-  }}
->
-
-  <button
-    className="primary-btn"
-    style={{
-      width: "auto",
-      padding: "12px 18px"
-    }}
-    onClick={exportPDF}
-  >
-    Export PDF
-  </button>
-
-  <button
-    className="primary-btn"
-    style={{
-      width: "auto",
-      padding: "12px 18px"
-    }}
-    onClick={exportExcel}
-  >
-    Export Excel
-  </button>
-
-  <button
-    className="primary-btn"
-    style={{
-      width: "auto",
-      padding: "12px 18px"
-    }}
-    onClick={exportCSV}
-  >
-    Export CSV
-  </button>
-
-</div>
-{/* AI INSIGHTS */}
-
-<div
-  className="card"
-  style={{
-    marginBottom: "20px"
-  }}
->
-
-  <div className="card-title">
-    <span className="card-dot"/>
-    AI Insights
-  </div>
-
-  {
-
-    aiInsights.length === 0
-
-      ?
-
-      <p className="empty">
-        No insights yet
-      </p>
-
-      :
-
-      aiInsights.map((insight, index) => (
-
-        <div
-          key={index}
-          style={{
-            background: "var(--surface2)",
-            border: "1px solid var(--border)",
-            borderRadius: "10px",
-            padding: "14px",
-            marginBottom: "10px",
-            fontSize: "14px",
-            color: "var(--text)"
-          }}
-        >
-
-          🤖 {insight}
-
-        </div>
-
-      ))
-
-  }
-
-</div>
-
+          {/* AI INSIGHTS */}
+          <div className="card" style={{ marginBottom: "20px" }}>
+            <div className="card-title">
+              <span className="card-dot"/>
+              AI Insights
+            </div>
+            {aiInsights.length === 0
+              ? <p className="empty">No insights yet</p>
+              : aiInsights.map((insight, index) => (
+                  <div key={index} style={{
+                    background: "var(--surface2)",
+                    border: "1px solid var(--border)",
+                    borderRadius: "10px",
+                    padding: "14px",
+                    marginBottom: "10px",
+                    fontSize: "14px",
+                    color: "var(--text)"
+                  }}>
+                    🤖 {insight}
+                  </div>
+                ))
+            }
+          </div>
 
           {/* ANALYTICS */}
-
-<div
-  className="card"
-  style={{
-    marginTop: "20px"
-  }}
->
-
-  <div className="card-title">
-    <span className="card-dot"/>
-    Analytics
-  </div>
-
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      gap: "20px"
-    }}
-  >
-
-    
-
-    {/* PIE CHART */}
-
-    <div
-      style={{
-        width: "100%",
-        height: "300px"
-      }}
-    >
-
-      <ResponsiveContainer>
-
-        <PieChart>
-
-          <Pie
-            data={analyticsData}
-            cx="50%"
-            cy="50%"
-            outerRadius={100}
-            dataKey="value"
-            label
-          >
-
-            {analyticsData.map((entry, index) => (
-              <Cell
-                key={index}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-
-          </Pie>
-
-          <Tooltip />
-
-        </PieChart>
-
-      </ResponsiveContainer>
-
-    </div>
-
-    {/* BAR CHART */}
-
-    <div
-      style={{
-        width: "100%",
-        height: "300px"
-      }}
-    >
-
-      <ResponsiveContainer>
-
-        <BarChart data={analyticsData}>
-
-          <CartesianGrid strokeDasharray="3 3" />
-
-          <XAxis dataKey="name" />
-
-          <YAxis />
-
-          <Tooltip />
-
-          <Bar
-            dataKey="value"
-            fill="#c8f542"
-            radius={[8, 8, 0, 0]}
-          />
-
-        </BarChart>
-
-      </ResponsiveContainer>
-
-    </div>
-
-  </div>
-
-</div>
+          <div className="card" style={{ marginTop: "20px" }}>
+            <div className="card-title">
+              <span className="card-dot"/>
+              Analytics
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+              <div style={{ width: "100%", height: "300px" }}>
+                <ResponsiveContainer>
+                  <PieChart>
+                    <Pie data={analyticsData} cx="50%" cy="50%" outerRadius={100} dataKey="value" label>
+                      {analyticsData.map((entry, index) => (
+                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <div style={{ width: "100%", height: "300px" }}>
+                <ResponsiveContainer>
+                  <BarChart data={analyticsData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" />
+                    <XAxis dataKey="name" tick={{ fill: "#5a5a72", fontSize: 12 }} />
+                    <YAxis tick={{ fill: "#5a5a72", fontSize: 12 }} />
+                    <Tooltip />
+                    <Bar dataKey="value" fill="#4f6ef2" radius={[8, 8, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>

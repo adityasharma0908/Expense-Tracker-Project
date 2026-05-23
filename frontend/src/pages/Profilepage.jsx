@@ -8,28 +8,24 @@ const styles = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:         #07070d;
-    --surface:    #0d0d16;
-    --surface2:   #12121c;
-    --surface3:   #171724;
-    --border:     rgba(255,255,255,0.06);
-    --border-hi:  rgba(200,245,66,0.22);
-    --accent:     #c8f542;
-    --accent-dim: rgba(200,245,66,0.09);
-    --red:        #f87171;
-    --red-dim:    rgba(248,113,113,0.09);
-    --text:       #e8e8f0;
-    --text-2:     #8888a0;
-    --text-3:     #44445a;
+    --bg:         #f5f5f0;
+    --surface:    #ffffff;
+    --surface2:   #f9f9f7;
+    --surface3:   #f0f0eb;
+    --border:     rgba(0,0,0,0.07);
+    --border-hi:  rgba(79,110,242,0.30);
+    --accent:     #4f6ef2;
+    --accent-dim: rgba(79,110,242,0.08);
+    --red:        #d95b5b;
+    --red-dim:    rgba(217,91,91,0.08);
+    --text:       #1a1a2e;
+    --text-2:     #5a5a72;
+    --text-3:     #a0a0b8;
   }
 
   @keyframes fadeUp {
-    from { opacity:0; transform:translateY(14px); }
+    from { opacity:0; transform:translateY(10px); }
     to   { opacity:1; transform:translateY(0); }
-  }
-  @keyframes pulseOrb {
-    0%,100% { opacity:.5; transform:scale(1); }
-    50%      { opacity:.8; transform:scale(1.06); }
   }
 
   body {
@@ -43,30 +39,14 @@ const styles = `
     background: var(--bg);
     color: var(--text);
     padding-bottom: 60px;
-    position: relative; overflow-x: hidden;
+    position: relative;
   }
-
-  .bg-grid {
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none; z-index: 0;
-  }
-  .bg-orb {
-    position: fixed; border-radius: 50%;
-    filter: blur(110px); pointer-events: none; z-index: 0;
-    animation: pulseOrb 9s ease-in-out infinite;
-  }
-  .orb1 { width:500px; height:500px; background:rgba(124,58,237,.08); top:-160px; right:-140px; }
-  .orb2 { width:380px; height:380px; background:rgba(200,245,66,.05); bottom:-100px; left:-100px; animation-delay:-4s; }
 
   /* ── NAV ── */
   .db-nav {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(7,7,13,.88);
-    backdrop-filter: blur(20px);
+    background: rgba(245,245,240,0.92);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     height: 60px; padding: 0 36px;
     display: flex; align-items: center;
@@ -75,20 +55,21 @@ const styles = `
 
   .back-btn {
     display: flex; align-items: center; gap: 7px;
-    background: var(--surface2);
+    background: var(--surface);
     border: 1px solid var(--border);
     color: var(--text-2);
     padding: 8px 14px; border-radius: 9px;
     font-family: 'DM Sans', sans-serif;
     font-size: 13px; font-weight: 500;
     cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     transition: border-color .2s, color .2s, background .2s;
   }
-  .back-btn:hover { border-color: var(--border-hi); color: var(--text); background: var(--surface3); }
+  .back-btn:hover { border-color: var(--border-hi); color: var(--accent); background: var(--accent-dim); }
 
   .logout-btn {
     background: var(--red-dim);
-    border: 1px solid rgba(248,113,113,.2);
+    border: 1px solid rgba(217,91,91,0.18);
     color: var(--red);
     padding: 8px 14px; border-radius: 9px;
     font-family: 'DM Sans', sans-serif;
@@ -96,7 +77,7 @@ const styles = `
     cursor: pointer;
     transition: background .2s, border-color .2s;
   }
-  .logout-btn:hover { background: rgba(248,113,113,.15); border-color: rgba(248,113,113,.35); }
+  .logout-btn:hover { background: rgba(217,91,91,0.13); border-color: rgba(217,91,91,0.30); }
 
   /* ── CONTENT ── */
   .profile-content {
@@ -123,13 +104,17 @@ const styles = `
     margin-bottom: 18px;
     animation: fadeUp .5s .06s ease both; opacity:0;
     animation-fill-mode: forwards;
-    transition: border-color .2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    transition: border-color .2s, box-shadow .2s;
   }
-  .profile-card:hover { border-color: rgba(255,255,255,.1); }
+  .profile-card:hover {
+    border-color: rgba(79,110,242,0.18);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+  }
 
   .avatar {
     width: 60px; height: 60px; border-radius: 50%;
-    background: var(--accent); color: #07070d;
+    background: var(--accent); color: #fff;
     display: flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 22px; flex-shrink: 0;
   }
@@ -150,9 +135,14 @@ const styles = `
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 14px; padding: 20px 18px;
-    transition: border-color .2s, transform .2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    transition: border-color .2s, box-shadow .2s, transform .2s;
   }
-  .stat-card:hover { border-color: rgba(255,255,255,.1); transform: translateY(-1px); }
+  .stat-card:hover {
+    border-color: rgba(79,110,242,0.18);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    transform: translateY(-1px);
+  }
 
   .stat-label {
     font-family: 'DM Mono', monospace;
@@ -161,7 +151,7 @@ const styles = `
   }
   .stat-value { font-size: 24px; font-weight: 600; letter-spacing: -.4px; }
   .stat-value.neutral { color: var(--text); }
-  .stat-value.green   { color: var(--accent); }
+  .stat-value.green   { color: #2a8c55; }
   .stat-value.red     { color: var(--red); }
 
   /* ── TRANSACTIONS ── */
@@ -171,6 +161,7 @@ const styles = `
     border-radius: 14px; padding: 22px;
     animation: fadeUp .5s .14s ease both; opacity:0;
     animation-fill-mode: forwards;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
   .tx-header {
     display: flex; justify-content: space-between;
@@ -182,7 +173,7 @@ const styles = `
   }
   .card-dot {
     width: 5px; height: 5px; border-radius: 50%;
-    background: var(--accent); box-shadow: 0 0 5px var(--accent);
+    background: var(--accent);
     display: inline-block; flex-shrink: 0;
   }
   .tx-count {
@@ -197,16 +188,19 @@ const styles = `
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 9px; margin-bottom: 7px;
-    transition: border-color .15s, background .15s;
+    transition: border-color .15s, box-shadow .15s;
   }
-  .tx-row:hover { border-color: rgba(255,255,255,.09); background: var(--surface3); }
+  .tx-row:hover {
+    border-color: rgba(79,110,242,0.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
 
   .tx-icon {
     width: 32px; height: 32px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .tx-icon.inc { background: var(--accent-dim); color: var(--accent); }
-  .tx-icon.exp { background: var(--red-dim);    color: var(--red); }
+  .tx-icon.inc { background: rgba(79,110,242,0.10); color: var(--accent); }
+  .tx-icon.exp { background: var(--red-dim); color: var(--red); }
 
   .tx-info { flex: 1; min-width: 0; }
   .tx-text {
@@ -222,7 +216,7 @@ const styles = `
     font-family: 'DM Mono', monospace;
     font-size: 13px; font-weight: 400; flex-shrink: 0;
   }
-  .tx-amount.inc { color: var(--accent); }
+  .tx-amount.inc { color: #2a8c55; }
   .tx-amount.exp { color: var(--red); }
 
   .empty {
@@ -252,22 +246,24 @@ const ExpenseIcon = () => (
 
 function Profilepage() {
   const navigate = useNavigate()
-  const [transactions, setTransactions] = useState([])
+  
   const user = {
-
-  name: localStorage.getItem("userName") || "User",
-
-  email: localStorage.getItem("userEmail") || "user@email.com"
-
-}
-
+    name: localStorage.getItem("userName") || "User",
+    email: localStorage.getItem("userEmail") || "user@email.com"
+  }
+  const [transactions, setTransactions] = useState([])
   useEffect(() => { fetchTransactions() }, [])
 
   const fetchTransactions = async () => {
     try {
-      const r = await API.get("/transactions")
+      const userId = localStorage.getItem("userId")
+      console.log("PROFILE USER ID:", userId)
+      const r = await API.get(`/transactions?user_id=${userId}`)
+      console.log("PROFILE TRANSACTIONS:", r.data)
       setTransactions(r.data)
-    } catch (e) { console.log(e) }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const handleLogout = () => {
@@ -284,9 +280,6 @@ function Profilepage() {
     <>
       <style>{styles}</style>
       <div className="profile-page">
-        <div className="bg-grid"/>
-        <div className="bg-orb orb1"/>
-        <div className="bg-orb orb2"/>
 
         {/* NAV */}
         <nav className="db-nav">
