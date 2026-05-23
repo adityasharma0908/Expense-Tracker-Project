@@ -3,18 +3,19 @@ const express = require("express")
 const router = express.Router()
 
 const {
+
   addTransaction,
   getTransactions,
   deleteTransaction
-} = require("../Controllers/transactionController")
 
-const verifyToken =
-require("../Middleware/authMiddleware")
+} = require("../controllers/transactionController")
 
-router.post("/", verifyToken, addTransaction)
 
-router.get("/", verifyToken, getTransactions)
 
-router.delete("/:id", verifyToken, deleteTransaction)
+router.post("/", addTransaction)
+
+router.get("/", getTransactions)
+
+router.delete("/:id", deleteTransaction)
 
 module.exports = router

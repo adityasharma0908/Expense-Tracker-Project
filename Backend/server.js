@@ -1,14 +1,16 @@
 const express = require("express")
 const cors = require("cors")
-const goalRoutes =
-require("./Routes/goalRoutes")
 
 require("./config/db")
 
-const authRoutes = require("./Routes/authRoutes")
+const authRoutes =
+require("./routes/authRoutes")
 
 const transactionRoutes =
-require("./Routes/transactionRoutes")
+require("./routes/transactionRoutes")
+
+const goalRoutes =
+require("./routes/goalRoutes")
 
 const app = express()
 
@@ -22,11 +24,17 @@ app.use("/api/transactions", transactionRoutes)
 app.use("/api/goals", goalRoutes)
 
 app.get("/", (req, res) => {
-  res.send("Backend Server Running")
+
+  res.send("Backend running")
+
 })
 
 const PORT = 3001
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+
+  console.log(
+    `Server running on port ${PORT}`
+  )
+
 })

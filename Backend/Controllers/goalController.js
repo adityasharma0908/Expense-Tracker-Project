@@ -2,134 +2,134 @@ const db = require("../config/db")
 
 // GET GOALS
 
-const getGoals = (req, res) => {
+const getGoals = async (req, res) => {
 
-  const sql =
-    "SELECT * FROM goals"
+  try {
 
-  db.query(sql, (err, result) => {
+    const [rows] = await db.query(
 
-    if (err) {
+  "SELECT * FROM goals WHERE user_id = ?",
 
-      console.log(err)
+  [req.query.user_id]
 
-      return res.status(500).json({
-        message: "Failed to fetch goals"
-      })
+);
 
-    }
+    res.json(rows);
 
-    res.json(result)
+  } catch (error) {
 
-  })
+    console.log(error);
 
-}
+    res.status(500).json({
+      error: "Server Error"
+    });
+
+  }
+
+};
 
 // ADD GOAL
 
-const addGoal = (req, res) => {
+const addGoal = async (req, res) => {
 
-  const { title, target, saved } =
-    req.body
+  try {
 
-  const sql =
-    "INSERT INTO goals (title, target, saved) VALUES (?, ?, ?)"
+    const {
 
-  db.query(
+  title,
+  target,
+  saved,
+  user_id
 
-    sql,
+} = req.body;
 
-    [title, target, saved],
+    await db.query(
+      "INSERT INTO goals (title, target_amount, saved_amount, user_id) VALUES (?, ?, ?, ?)",
+      [title, target, saved, user_id]
+    );
 
-    (err, result) => {
+    res.status(201).json({
+      message: "Goal added successfully"
+    });
 
-      if (err) {
+  } catch (error) {
 
-        console.log(err)
+    console.log(error);
 
-        return res.status(500).json({
-          message: "Failed to add goal"
-        })
+    res.status(500).json({
+      error: "Server Error"
+    });
 
-      }
+  }
 
-      res.json({
-        message: "Goal added"
-      })
-
-    }
-
-  )
-
-}
+};
 
 // DELETE GOAL
 
-const deleteGoal = (req, res) => {
+const deleteGoal = async (req, res) => {
 
-  const { id } = req.params
+  try {
 
-  const sql =
-    "DELETE FROM goals WHERE id = ?"
+    const { id } = req.params
 
-  db.query(sql, [id], (err) => {
-
-    if (err) {
-
-      console.log(err)
-
-      return res.status(500).json({
-        message: "Failed to delete goal"
-      })
-
-    }
+    await db.query(
+      "DELETE FROM goals WHERE id = ?",
+      [id]
+    )
 
     res.json({
       message: "Goal deleted"
     })
 
-  })
+  }
+
+  catch (error) {
+
+    console.log(error)
+
+    res.status(500).json({
+      error: "Server Error"
+    })
+
+  }
 
 }
 
 // UPDATE GOAL
+const updateGoal = async (req, res) => {
 
-const updateGoal = (req, res) => {
+  try {
 
-  const { id } = req.params
+    const { id } = req.params
 
-  const { saved } = req.body
+    const { saved } = req.body
 
-  const sql =
-    "UPDATE goals SET saved = ? WHERE id = ?"
+    await db.query(
 
-  db.query(
+      "UPDATE goals SET saved_amount = ? WHERE id = ?",
 
-    sql,
+      [saved, id]
 
-    [saved, id],
+    )
 
-    (err) => {
+    res.json({
+      message: "Goal updated"
+    })
 
-      if (err) {
+  }
 
-        console.log(err)
+  catch (error) {
 
-        return res.status(500).json({
-          message: "Failed to update goal"
-        })
+    console.log(error)
 
-      }
+    res.status(500).json({
+      message: "Failed to update goal"
+    })
 
-      res.json({
-        message: "Goal updated"
-      })
-
-    }
-
-  )
+  }
 
 }
+
 
 module.exports = {
 

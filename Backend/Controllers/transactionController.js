@@ -1,78 +1,101 @@
-const db = require("../Config/db")
+const db = require("../config/db")
 
-// ADD TRANSACTION
+const addTransaction = async (req, res) => {
 
-const addTransaction = (req, res) => {
+  try {
 
-  const { user_id, text, amount } = req.body
+    const {
 
-  const sql =
-    "INSERT INTO transactions (user_id, text, amount) VALUES (?, ?, ?)"
+      text,
+      amount,
+      category,
+      user_id
 
-  db.query(sql, [user_id, text, amount], (err, result) => {
+    } = req.body
 
-    if (err) {
+    await db.query(
 
-      console.log(err)
+      "INSERT INTO transactions (text, amount, category, user_id) VALUES (?, ?, ?, ?)",
 
-      return res.status(500).json({
-        message: "Transaction failed"
-      })
+      [text, amount, category, user_id]
 
-    }
+    )
 
     res.status(201).json({
-      message: "Transaction added successfully"
+      message: "Transaction added"
     })
 
-  })
+  }
+
+  catch (error) {
+
+    console.log(error)
+
+    res.status(500).json({
+      message: "Transaction failed"
+    })
+
+  }
 
 }
 
-// GET TRANSACTIONS
+const getTransactions = async (req, res) => {
 
-const getTransactions = (req, res) => {
+  try {
 
-  const sql =
-    "SELECT * FROM transactions"
+    const [rows] = await db.query(
 
-  db.query(sql, (err, result) => {
+      "SELECT * FROM transactions WHERE user_id = ?",
 
-    if (err) {
+      [req.query.user_id]
 
-      return res.status(500).json({
-        message: "Failed to fetch transactions"
-      })
+    )
 
-    }
+    res.json(rows)
 
-    res.status(200).json(result)
+  }
 
-  })
+  catch (error) {
+
+    console.log(error)
+
+    res.status(500).json({
+      message: "Failed to fetch transactions"
+    })
+
+  }
 
 }
-const deleteTransaction = (req, res) => {
 
-  const { id } = req.params
+const deleteTransaction = async (req, res) => {
 
-  const sql =
-    "DELETE FROM transactions WHERE id = ?"
+  try {
 
-  db.query(sql, [id], (err, result) => {
+    const { id } = req.params
 
-    if (err) {
+    await db.query(
 
-      return res.status(500).json({
-        message: "Delete failed"
-      })
+      "DELETE FROM transactions WHERE id = ?",
 
-    }
+      [id]
 
-    res.status(200).json({
+    )
+
+    res.json({
       message: "Transaction deleted"
     })
 
-  })
+  }
+
+  catch (error) {
+
+    console.log(error)
+
+    res.status(500).json({
+      message: "Delete failed"
+    })
+
+  }
 
 }
 

@@ -1,96 +1,80 @@
-const db = require("../Config/db")
-
+const db = require("../config/db")
 const jwt = require("jsonwebtoken")
 
-// REGISTER USER
+const registerUser = async (req, res) => {
 
-const registerUser = (req, res) => {
+  try {
 
-  const { name, email, password } = req.body
+    const { name, email, password } =
+      req.body
 
-  const sql =
-    "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
+    await db.query(
 
-  db.query(sql, [name, email, password], (err, result) => {
+      "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
 
-    if (err) {
+      [name, email, password]
 
-      console.log(err)
-
-      return res.status(500).json({
-        message: "Registration failed"
-      })
-
-    }
+    )
 
     res.status(201).json({
       message: "User registered successfully"
     })
 
-  })
+  }
+
+  catch (error) {
+
+    console.log(error)
+
+    res.status(500).json({
+      message: "Registration failed"
+    })
+
+  }
 
 }
 
-// LOGIN USER
+const loginUser = async (req, res) => {
 
-const loginUser = (req, res) => {
+  try {
 
-  const { email, password } = req.body
+    const { email, password } = req.body
 
-  const sql =
-    "SELECT * FROM users WHERE email = ?"
+    const [rows] = await db.query(
 
-  db.query(sql, [email], (err, result) => {
+      "SELECT * FROM users WHERE email = ? AND password = ?",
 
-    if (err) {
-
-      return res.status(500).json({
-        message: "Login failed"
-      })
-
-    }
-
-    if (result.length === 0) {
-
-      return res.status(401).json({
-        message: "User not found"
-      })
-
-    }
-
-    const user = result[0]
-
-    if (user.password !== password) {
-
-      return res.status(401).json({
-        message: "Invalid password"
-      })
-
-    }
-
-    const token = jwt.sign(
-
-      {
-        id: user.id
-      },
-
-      "mysecretkey",
-
-      {
-        expiresIn: "1d"
-      }
+      [email, password]
 
     )
 
-    res.status(200).json({
+    if (rows.length === 0) {
+
+      return res.status(401).json({
+        message: "Invalid credentials"
+      })
+
+    }
+
+    res.json({
 
       message: "Login successful",
 
-      token
+      user: rows[0]
 
     })
 
-  })
+  }
+
+  catch (error) {
+
+    console.log(error)
+
+    res.status(500).json({
+      message: "Login failed"
+    })
+
+  }
 
 }
 
