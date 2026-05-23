@@ -444,7 +444,7 @@ setGoals(r.data) }
     toast.success("Transaction added")
     if (!text || !amount) { alert("Fill all fields"); return }
     try {
-      await API.post("/transactions", {
+      await API.post("/api/transactions", {
         text, amount,
         amount: type === "expense" ? -Math.abs(amount) : Math.abs(amount),
         category,
@@ -456,7 +456,7 @@ console.log(e)}
   }
 
   const deleteTransaction = async (id) => {
-    try { await API.delete(`/transactions/${id}`); fetchTransactions() }
+    try { await API.delete(`/api/transactions/${id}`); fetchTransactions() }
     catch (e) { toast.error("Something went wrong")
 console.log(e) }
     toast.error("Transaction deleted")
@@ -465,7 +465,7 @@ console.log(e) }
   const addGoal = async () => {
     if (!goalTitle || !goalTarget || !goalSaved) { alert("Fill all fields"); return }
     try {
-      await API.post("/goals", { title: goalTitle, target: goalTarget, saved: goalSaved, user_id: localStorage.getItem("userId")})
+      await API.post("/api/goals", { title: goalTitle, target: goalTarget, saved: goalSaved, user_id: localStorage.getItem("userId")})
       setGoalTitle(""); setGoalTarget(""); setGoalSaved(""); fetchGoals()
       toast.success("Goal added")
     } catch (e) { toast.error("Something went wrong")
@@ -474,7 +474,7 @@ console.log(e) }
 
   const deleteGoal = async (id) => {
     if (!window.confirm("Delete this goal?")) return
-    try { await API.delete(`/goals/${id}`); setGoals(goals.filter(g => g.id !== id)) }
+    try { await API.delete(`/api/goals/${id}`); setGoals(goals.filter(g => g.id !== id)) }
     catch (e) { toast.error("Something went wrong")
 toast.error("Goal deleted")}
   }
@@ -484,7 +484,7 @@ toast.error("Goal deleted")}
     if (!added || isNaN(added)) return
     const updatedSaved = Number(goal.saved_amount) + Number(added)
     try {
-      await API.put(`/goals/${goal.id}`, { saved: updatedSaved })
+      await API.put(`/api/goals/${goal.id}`, { saved: updatedSaved })
       setGoals(prev => prev.map(g =>
         g.id === goal.id ? { ...g, saved_amount: updatedSaved, target_amount: Number(g.target_amount) } : g
       ))

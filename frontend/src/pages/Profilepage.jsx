@@ -258,7 +258,7 @@ function Profilepage() {
     try {
       const userId = localStorage.getItem("userId")
       console.log("PROFILE USER ID:", userId)
-      const r = await API.get(`/transactions?user_id=${userId}`)
+      const r = await API.get(`/api/transactions?user_id=${userId}`)
       console.log("PROFILE TRANSACTIONS:", r.data)
       setTransactions(r.data)
     } catch (e) {
