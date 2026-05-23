@@ -1,18 +1,96 @@
-A full-stack Expense Tracker web application built using React.js, Node.js, Express.js, and MySQL. The project allows users to manage expenses, track financial goals, and monitor spending through a responsive and user-friendly interface. Currently under development with continuous feature and UI improvements.
+# Expense Tracker Web Application
 
-# React + Vite
+A full-stack Expense Tracker web application built to help users manage their finances through real-time income tracking, expense management, and savings goals.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+- User Authentication (Login & Signup)
+- Income & Expense Tracking
+- Goal-Based Savings Tracking
+- Real-Time Balance Updates
+- Add/Delete Transactions
+- Add/Delete Goals
+- Responsive User Interface
+- Cloud Database Integration
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+### Frontend
+- React.js
+- CSS3
+- Axios
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Backend
+- Node.js
+- Express.js
 
-## Expanding the ESLint configuration
+### Database
+- MySQL
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Deployment
+- Vercel
+- Render
+- Railway
+
+## Live Demo
+
+Frontend: https://expense-tracker-project-snowy.vercel.app
+
+## Project Structure
+
+frontend/ 
+backend/ 
+
+## Installation
+
+### Clone Repository
+
+git clone https://github.com/adityasharma0908/Expense-Tracker-Project
+
+### Install Frontend Dependencies
+
+bash cd frontend npm install 
+
+### Install Backend Dependencies
+
+bash cd backend npm install 
+
+## Environment Variables
+
+Create a .env file inside backend folder:
+
+env DB_HOST= DB_PORT= DB_USER= DB_PASSWORD= DB_NAME= JWT_SECRET= 
+
+## Run Project Locally
+
+### Start Backend
+
+cd backend npm start 
+
+### Start Frontend
+
+cd frontend npm run dev 
+
+## Learning Outcomes
+
+This project helped me gain practical experience in:
+
+- Full-Stack Web Development
+- REST API Integration
+- Authentication Systems
+- Cloud Deployment
+- Database Management
+- Git & GitHub Workflow
+- Debugging Production-Level Issues
+
+## Future Improvements
+
+- Dark Mode
+- Monthly Analytics
+- Charts & Visual Reports
+- Budget Planning
+- Mobile App Version
+
+## Author
+
+Aditya Sharma
