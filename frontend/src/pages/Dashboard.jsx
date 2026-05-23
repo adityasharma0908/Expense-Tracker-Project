@@ -431,11 +431,11 @@ function Dashboard() {
   useEffect(() => { fetchTransactions(); fetchGoals() }, [])
 
   const fetchTransactions = async () => {
-    try { const r = await API.get(`/transactions?user_id=${localStorage.getItem("userId")}`); setTransactions(r.data) }
+    try { const r = await API.get(`/api/transactions?user_id=${localStorage.getItem("userId")}`); setTransactions(r.data) }
     catch (e) { console.log(e) }
   }
   const fetchGoals = async () => {
-    try { const r = await API.get(`/goals?user_id=${localStorage.getItem("userId")}`); 
+    try { const r = await API.get(`/api/goals?user_id=${localStorage.getItem("userId")}`); 
 setGoals(r.data) }
     catch (e) { console.log(e) }
   }

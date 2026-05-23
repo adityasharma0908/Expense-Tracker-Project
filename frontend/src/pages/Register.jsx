@@ -182,7 +182,7 @@ function Register() {
     e.preventDefault()
     if (!name || !email || !password) { alert("Please fill all fields"); return }
     try {
-      const response = await API.post("/auth/register", { name, email, password })
+      const response = await API.post("/api/auth/register", { name, email, password })
       console.log(response.data)
       alert("Registration Successful")
       navigate("/")
