@@ -253,7 +253,13 @@ const ExpenseIcon = () => (
 function Profilepage() {
   const navigate = useNavigate()
   const [transactions, setTransactions] = useState([])
-  const user = { name: "Aditya Sharma", email: "aditya@gmail.com" }
+  const user = {
+
+  name: localStorage.getItem("userName") || "User",
+
+  email: localStorage.getItem("userEmail") || "user@email.com"
+
+}
 
   useEffect(() => { fetchTransactions() }, [])
 
