@@ -93,4 +93,4 @@ This project helped me gain practical experience in:
 
 ## Author
 
-Aditya Sharma
+Aditya K. Sharma
