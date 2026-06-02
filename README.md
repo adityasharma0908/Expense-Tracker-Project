@@ -92,5 +92,4 @@ This project helped me gain practical experience in:
 - Mobile App Version
 
 ## Author
-
 Aditya K. Sharma
