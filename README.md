@@ -1,6 +1,6 @@
 # Expense Tracker Web Application
 
-A full-stack Expense Tracker web application built to help users manage their finances through real-time income tracking, expense management, and savings goals.
+A full stack Expense Tracker web application built to help users manage their finances through real-time income tracking, expense management, and savings goals.
 
 ## Features
 
